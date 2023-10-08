@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab Assignment 4: CRUD Ops on Database using PHP</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .header {
+            background-color: #007BFF;
+            color: #fff;
+            padding: 20px 0;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .button-container button {
+            flex: 1;
+            margin: 0 5px;
+        }
+
+        .button-container button:hover {
+            background-color: #007BFF;
+            color: #fff;
+        }
+        .container {
+            margin-top: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+    </style>
+</head>
+
+<script>
+    function select() {
+      var xmlhttp = new XMLHttpRequest();
+      xmlhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+          document.getElementById("message").innerHTML = this.responseText;
+        }
+      };
+      xmlhttp.open("GET", "select.php", true);
+      xmlhttp.send();
+    }
+    
+    function insert() {
+      var prn = document.getElementById("prn-insert").value;
+      var username = document.getElementById("username-insert").value;
+      var password = document.getElementById("password-insert").value;
+    
+      var xmlhttp = new XMLHttpRequest();
+      xmlhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+          document.getElementById("message").innerHTML = this.responseText;
+        }
+      };
+      xmlhttp.open("POST", "insert.php", true);
+      xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      xmlhttp.send("prn=" + prn + "&username=" + username + "&password=" + password);
+    }
+    
+    function update() {
+      var prn = document.getElementById("prn-update").value;
+      var newUsername = document.getElementById("newUsername").value;
+      var newPassword = document.getElementById("newPassword").value;
+    
+      var xmlhttp = new XMLHttpRequest();
+      xmlhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+          document.getElementById("message").innerHTML = this.responseText;
+        }
+      };
+      xmlhttp.open("POST", "update.php", true);
+      xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      xmlhttp.send("prn=" + prn + "&newUsername=" + newUsername + "&newPassword=" + newPassword);
+    }
+    
+    function del() {
+      var prn = document.getElementById("prn-delete").value;
+    
+      var xmlhttp = new XMLHttpRequest();
+      xmlhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+          document.getElementById("message").innerHTML = this.responseText;
+        }
+      };
+      xmlhttp.open("POST", "delete.php", true);
+      xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      xmlhttp.send("prn=" + prn);
+    }
+    </script>
+    
+    <body>
+    <header class="header text-center">
+    <h1>CRUD Ops on Database using PHP</h1>
+    </header>
+    
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4">
+          <h2>Create User</h2>
+          <form>
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="PRN" id="prn-insert">
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="Username" id="username-insert">
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="Password" id="password-insert">
+            </div>
+            <button type="button" class="btn btn-primary btn-block" onclick="insert()">Insert</button>
+          </form>
+        </div>
+        <div class="col-md-4">
+          <h2>Update User</h2>
+          <form>
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="PRN" id="prn-update">
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="New Username" id="newUsername">
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="New Password" id="newPassword">
+            </div>
+            <button type="button" class="btn btn-primary btn-block" onclick="update()">Update</button>
+          </form>
+        </div>
+        <div class="col-md-4">
+          <h2>Delete User</h2>
+          <form>
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="PRN" id="prn-delete">
+            </div>
+            <button type="button" class="btn btn-danger btn-block" onclick="del()">Delete</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    
+    <div class="container text-center button-container">
+      <button type="button" class="btn btn-success" onclick="select();">Select</button>
+    </div>
+    
+    <div class="container my-3">
+      <p id="message"></p>
+    </div>
+
+    <!-- Bootstrap JS and jQuery links -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
